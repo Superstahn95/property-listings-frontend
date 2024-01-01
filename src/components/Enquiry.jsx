@@ -1,6 +1,31 @@
-import React from "react";
+import { useState } from "react";
+import AddImagesModal from "./AddImagesModal";
 
 function Enquiry() {
+  const [showAddImages, setShowAddImages] = useState(false);
+  const [images, setImages] = useState([]);
+  const [propertyData, setPropertyData] = useState({
+    name: "",
+    email: "",
+    number: "",
+    address: "",
+    price: "",
+    rooms: "",
+    message: "",
+  });
+
+  const [coverImage, setCoverImage] = useState(null);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPropertyData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (data) => {
+    console.log(data);
+  };
   const formInputClass =
     "flex-1 p-3 border-2 border-solid border-black/25 outline-none hover:border-black uppercase rounded-md";
   const inputWrapperClass =
@@ -17,12 +42,16 @@ function Enquiry() {
               name="name"
               placeholder="Name"
               class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.name}
             />
             <input
               type="email"
               name="email"
               placeholder="Email address"
               class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.email}
             />
           </div>
           <div class={inputWrapperClass}>
@@ -31,31 +60,44 @@ function Enquiry() {
               name="number"
               placeholder="Phone Number"
               class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.number}
             />
             <input
               type="text"
               name="address"
               placeholder="Enter Address"
               class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.address}
             />
           </div>
 
           <div class={inputWrapperClass}>
             <input
-              type="text"
-              name="country"
-              placeholder="Country"
+              type="file"
+              name="coverImage"
               class={formInputClass}
+              onChange={(e) => setCoverImage(e.target.files[0])}
+              value={propertyData.country}
             />
             <input
               type="text"
               name="price"
               placeholder="Price Expectations in Naira"
               class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.price}
             />
           </div>
           <div class={inputWrapperClass}>
-            <select name="apartment" id="" class={formInputClass}>
+            <select
+              name="rooms"
+              id=""
+              class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.rooms}
+            >
               <option value="" class="">
                 Number of rooms
               </option>
@@ -83,13 +125,24 @@ function Enquiry() {
               rows="10"
               placeholder="Wish to send us a message concerning this property? Type one here"
               class={formInputClass}
+              onChange={handleChange}
+              value={propertyData.message}
             ></textarea>
           </div>
-          <div class="my-3">
-            <button class="bg-black text-white p-2">Submit Details</button>
+          <div class="my-3  w-full flex items-center justify-center">
+            <button class="bg-black text-white p-2 w-full">
+              Submit Details
+            </button>
           </div>
         </div>
       </form>
+      {showAddImages && (
+        <AddImagesModal
+          images={images}
+          setImages={setImages}
+          setShowAddImages={setShowAddImages}
+        />
+      )}
     </section>
   );
 }
