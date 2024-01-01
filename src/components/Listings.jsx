@@ -3,7 +3,7 @@ import PropertyCard from "./PropertyCard";
 
 function Listings() {
   return (
-    <section class="listings">
+    <section class="listings font-montserrat">
       <div class="container mx-auto w-4/5">
         <div>
           <form action="" class="form">
@@ -45,7 +45,7 @@ function Listings() {
               </li>
             </ul>
           </div>
-          <div className="grid grid-cols-3 gap-4 w-10/12">
+          <div className="grid grid-cols-3 gap-4 w-10/12 ">
             {listings.map((listing) => (
               <PropertyCard key={listing.id} listing={listing} />
             ))}

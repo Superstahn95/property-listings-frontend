@@ -1,39 +1,39 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav class="bg-black p-6 font-montserrat">
-      <div class="container w-4/5 mx-auto">
-        <div class="flex items-center justify-between">
-          <a href="/" class="text-white no-underline text-2xl">
+    <nav className="bg-black p-6 font-montserrat">
+      <div className="container w-4/5 mx-auto">
+        <div className="flex items-center justify-between">
+          <NavLink to={"/"} className="text-white no-underline text-2xl">
             PropertyListings
-          </a>
+          </NavLink>
           <div>
-            <ul class="flex md:flex-row text-white items-center space-x-6">
-              <li class="uppercase">
-                <a href="/buy.html" class="text-white">
+            <ul className="flex md:flex-row text-white items-center space-x-6">
+              <li className="uppercase">
+                <NavLink to={"/buy"} className="text-white">
                   Buy
-                </a>
+                </NavLink>
               </li>
-              <li class="uppercase">
-                <a href="/sell.html" class="text-white">
+              <li className="uppercase">
+                <NavLink to={"/sell"} className="text-white">
                   Sell
-                </a>
+                </NavLink>
               </li>
-              <li class="uppercase">
-                <a href="" class="text-white">
+              {/* <li className="uppercase">
+                <NavLink  href="" className="text-white">
                   Rentals
-                </a>
-              </li>
-              <li class="uppercase">
-                <a href="/about.html" class="text-white">
+                </NavLink >
+              </li> */}
+              <li className="uppercase">
+                <NavLink to={"/about"} className="text-white">
                   About
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a
                   href="#"
-                  class="border-2 p-2 border-white uppercase no-underline font-bold border-solid hover:text-black hover:bg-white hover:border-black"
+                  className="border-2 p-2 border-white uppercase no-underline font-bold border-solid hover:text-black hover:bg-white hover:border-black"
                 >
                   Get in touch
                 </a>
