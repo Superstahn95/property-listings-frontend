@@ -28,8 +28,13 @@ function PropertyCard({ listing }) {
           </div>
           <span>${listing.price}</span>
         </div>
-        <div className=" mt-3">
+        <div className="flex flex-col space-y-2 mt-3">
           <span className="text-xs">{listing.rooms} Bedroom</span>
+          <span className="text-xs">
+            {listing.requests.length > 1
+              ? `${listing.requests.length} people interested`
+              : `${listing.requests.length} person interested`}
+          </span>
         </div>
         {/* <p class="py-3">{listing.address}</p> */}
         <div className="flex items-center justify-center">
