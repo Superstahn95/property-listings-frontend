@@ -1,25 +1,35 @@
-import React from "react";
+import { Link } from "react-router-dom";
 
 function PropertyCard({ listing }) {
   return (
-    <div class="card rounded-md   bg-slate-100 font-montserrat">
-      <div class="img">
+    <Link
+      to={`/listing/${listing._id}`}
+      class="card rounded-md   bg-slate-100 font-montserrat relative"
+    >
+      <div
+        className={`rounded-xl text-xs py-1 px-1 absolute top-2 right-2 min-w-[100px] text-white flex items-center justify-center ${
+          listing.isApproved ? "bg-green-500" : "bg-red-500"
+        }`}
+      >
+        {listing.isApproved ? "Approved" : "Pending Approval"}
+      </div>
+      <div>
         <img
-          src={listing.coverImage}
+          src={listing.coverPhoto.url}
           alt=""
-          className="h-[250px] object-cover rounded-t-md"
+          className="h-[250px] object-cover rounded-t-md w-full"
         />
       </div>
       <div class="card-details  p-2">
         <div className="flex justify-between">
           <div className="flex flex-col">
-            <span className="font-bold">Zen Mansions</span>
+            <span className="font-bold">{listing.name}</span>
             <span>{listing.state}</span>
           </div>
           <span>{listing.price}</span>
         </div>
         <div className=" mt-3">
-          <span className="text-xs">4 Bedroom</span>
+          <span className="text-xs">{listing.rooms} Bedroom</span>
         </div>
         {/* <p class="py-3">{listing.address}</p> */}
         <div className="flex items-center justify-center">
@@ -28,7 +38,7 @@ function PropertyCard({ listing }) {
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

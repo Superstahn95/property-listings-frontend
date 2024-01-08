@@ -1,4 +1,5 @@
 import { IoIosCloseCircle } from "react-icons/io";
+import axios from "../config/axios";
 
 function AddImagesModal({
   handleSubmit,
@@ -7,7 +8,12 @@ function AddImagesModal({
   loading,
   setLoading,
   setShowAddImages,
+  propertyData,
+  setPropertyData,
+  coverPhoto,
+  setCoverPhoto,
 }) {
+  // address, description, email, name, number, price, rooms
   //   const [images, setImages] = useState([]);
   const maxImages = 5;
   const handleImageChange = (e) => {
@@ -22,6 +28,27 @@ function AddImagesModal({
   const closeModal = () => {
     setImages([]);
     setShowAddImages(false);
+  };
+  const submitRequest = () => {
+    const { address, description, email, name, number, price, rooms, state } =
+      propertyData;
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("number", number);
+    formData.append("rooms", rooms);
+    formData.append("address", address);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("state", state);
+    formData.append("coverPhoto", coverPhoto);
+    console.log(images);
+    if (images.length > 0) {
+      images.forEach((image, index) => {
+        formData.append(`images`, image);
+      });
+    }
+    handleSubmit(formData);
   };
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black/60 flex items-center justify-center">
@@ -62,8 +89,11 @@ function AddImagesModal({
               Add Image ({images.length}/{maxImages})
             </button>
           )}
-          <button className="bg-black text-white p-3 rounded-md ">
-            Proceed to submit request
+          <button
+            onClick={submitRequest}
+            className="bg-black text-white p-3 rounded-md "
+          >
+            {loading ? "Loading..." : "Proceed to submit request"}
           </button>
         </div>
         {images.length < 1 && (

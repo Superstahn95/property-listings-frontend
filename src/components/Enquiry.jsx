@@ -1,9 +1,14 @@
 import { useState } from "react";
 import AddImagesModal from "./AddImagesModal";
+import { useDispatch, useSelector } from "react-redux";
+import { addListingSucess } from "../features/listings/listingSlice";
+import axios from "../config/axios";
+import swal from "sweetalert";
 
 function Enquiry() {
   const [showAddImages, setShowAddImages] = useState(false);
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [propertyData, setPropertyData] = useState({
     name: "",
     email: "",
@@ -11,10 +16,13 @@ function Enquiry() {
     address: "",
     price: "",
     rooms: "",
-    message: "",
+    description: "",
+    state: "",
   });
 
-  const [coverImage, setCoverImage] = useState(null);
+  const [coverPhoto, setCoverPhoto] = useState(null);
+  const dispatch = useDispatch();
+  const { listings } = useSelector((state) => state.listings);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPropertyData((prev) => ({
@@ -23,25 +31,74 @@ function Enquiry() {
     }));
   };
 
-  const handleSubmit = (data) => {
-    console.log(data);
+  const handleSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await axios.post("/listing", data);
+      console.log(response.data.listing);
+      dispatch(addListingSucess(response.data.listing));
+      setLoading(false);
+      setShowAddImages(false);
+      setPropertyData({
+        name: "",
+        email: "",
+        number: "",
+        address: "",
+        price: "",
+        rooms: "",
+        description: "",
+        state: "",
+      });
+      swal(
+        "Your listing has been submitted but still pending approval from us"
+      );
+    } catch (error) {
+      swal("Oops!", error.response.data.message, "error");
+      setLoading(false);
+    }
+  };
+  //add listing success modal
+  const popUpModal = (e) => {
+    //make sure all fields are filled up
+    e.preventDefault();
+    const { address, description, email, name, number, price, rooms, state } =
+      propertyData;
+    if (
+      !address ||
+      !description ||
+      !email ||
+      !name ||
+      !number ||
+      !price ||
+      !rooms ||
+      !coverPhoto ||
+      !state
+    ) {
+      return alert("Please fill all fields");
+    }
+    setShowAddImages(true);
   };
   const formInputClass =
-    "flex-1 p-3 border-2 border-solid border-black/25 outline-none hover:border-black uppercase rounded-md";
+    "flex-1 p-3 border-2 w-full border-solid border-black/25 outline-none hover:border-black  rounded-md";
   const inputWrapperClass =
-    "my-3 w-full flex items-center justify-between space-x-2";
+    "md:my-3  w-full space-y-2 mb-2 flex flex-col md:flex-row items-center justify-between md:space-x-2";
+  //   console.log(listings);
   return (
-    <section class="bg-zinc-300 py-4 font-montserrat">
-      <form action="">
-        <div class="container w-3/4 mx-auto flex flex-col items-center justify-center">
-          <h1 class="uppercase font-bold text-4xl py-4">Appraisal form</h1>
-          <p>Fill the details and our team will get back to you shortly</p>
-          <div class={inputWrapperClass}>
+    <section className="bg-zinc-300 py-4 font-montserrat">
+      <form action="" onSubmit={popUpModal}>
+        <div className="container w-11/12 md:w-3/4 mx-auto flex flex-col items-center justify-center">
+          <h1 className="uppercase font-bold text-xl md:text-4xl py-4">
+            Appraisal form
+          </h1>
+          <p className="text-center  mb-2">
+            Fill the details and our team will get back to you shortly
+          </p>
+          <div className={inputWrapperClass}>
             <input
               type="text"
               name="name"
               placeholder="Name"
-              class={formInputClass}
+              className={formInputClass}
               onChange={handleChange}
               value={propertyData.name}
             />
@@ -49,17 +106,17 @@ function Enquiry() {
               type="email"
               name="email"
               placeholder="Email address"
-              class={formInputClass}
+              className={formInputClass}
               onChange={handleChange}
               value={propertyData.email}
             />
           </div>
-          <div class={inputWrapperClass}>
+          <div className={inputWrapperClass}>
             <input
               type="text"
               name="number"
               placeholder="Phone Number"
-              class={formInputClass}
+              className={formInputClass}
               onChange={handleChange}
               value={propertyData.number}
             />
@@ -67,70 +124,72 @@ function Enquiry() {
               type="text"
               name="address"
               placeholder="Enter Address"
-              class={formInputClass}
+              className={formInputClass}
               onChange={handleChange}
               value={propertyData.address}
             />
           </div>
 
-          <div class={inputWrapperClass}>
+          <div className={inputWrapperClass}>
             <input
-              type="file"
-              name="coverImage"
-              class={formInputClass}
-              onChange={(e) => setCoverImage(e.target.files[0])}
-              value={propertyData.country}
+              type="text"
+              name="state"
+              placeholder="State"
+              className={formInputClass}
+              onChange={handleChange}
+              value={propertyData.state}
             />
+
             <input
               type="text"
               name="price"
               placeholder="Price Expectations in Naira"
-              class={formInputClass}
+              className={formInputClass}
               onChange={handleChange}
               value={propertyData.price}
             />
           </div>
-          <div class={inputWrapperClass}>
+          <div className={inputWrapperClass}>
             <select
               name="rooms"
               id=""
-              class={formInputClass}
+              className={formInputClass}
               onChange={handleChange}
               value={propertyData.rooms}
             >
-              <option value="" class="">
+              <option value="" className="">
                 Number of rooms
               </option>
-              <option value="" class="py-3">
+              <option value="1" className="py-3">
                 1 Bedroom
               </option>
-              <option value="">2 Bedroom</option>
-              <option value="">3 Bedroom</option>
-              <option value="">4 Bedroom</option>
-              <option value="">5+ Bedroom</option>
+              <option value="2">2 Bedroom</option>
+              <option value="3">3 Bedroom</option>
+              <option value="4">4 Bedroom</option>
+              <option value="5+">5+ Bedroom</option>
             </select>
             <input
-              type="text"
-              name="type"
-              placeholder="House Type"
-              class={formInputClass}
+              type="file"
+              name="coverImage"
+              className={formInputClass}
+              onChange={(e) => setCoverPhoto(e.target.files[0])}
             />
           </div>
 
-          <div class={inputWrapperClass}>
+          <div className={inputWrapperClass}>
             <textarea
-              name="message"
+              name="description"
               id=""
               cols="30"
               rows="10"
-              placeholder="Wish to send us a message concerning this property? Type one here"
-              class={formInputClass}
+              placeholder="Enter description about the property. You might wish to make it catchy"
+              className={formInputClass}
               onChange={handleChange}
-              value={propertyData.message}
+              value={propertyData.description}
             ></textarea>
           </div>
-          <div class="my-3  w-full flex items-center justify-center">
-            <button class="bg-black text-white p-2 w-full">
+          <div className="my-3  w-full flex items-center justify-center">
+            <button className="bg-black text-white p-2 w-full">
               Submit Details
             </button>
           </div>
@@ -141,6 +200,13 @@ function Enquiry() {
           images={images}
           setImages={setImages}
           setShowAddImages={setShowAddImages}
+          handleSubmit={handleSubmit}
+          propertyData={propertyData}
+          setPropertyData={setPropertyData}
+          coverPhoto={coverPhoto}
+          setCoverPhoto={setCoverPhoto}
+          loading={loading}
+          setLoading={setLoading}
         />
       )}
     </section>

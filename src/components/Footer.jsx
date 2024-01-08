@@ -1,52 +1,90 @@
-import React from "react";
+import { NavLink } from "react-router-dom";
+import { FaHouseDamage } from "react-icons/fa";
+import axios from "../config/axios";
+import { useState } from "react";
+import swal from "sweetalert";
 
 function Footer() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email) return alert("You cannot submit an empty email field");
+    setLoading(true);
+    try {
+      const response = await axios.post("/subscriber", { email });
+      console.log(response.data);
+      setLoading(false);
+      setEmail("");
+      swal(response.data.message);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      swal("Oops!", error.response.data.message, "error");
+    }
+  };
   return (
-    <footer class="bg-black py-5 font-montserrat">
-      <div class="subscribe flex items-center justify-center">
-        <form action="" class="w-full flex items-center justify-center">
+    <footer className="bg-black py-5 font-montserrat">
+      <div className="subscribe flex items-center justify-center">
+        <form
+          onSubmit={handleSubscribe}
+          className="w-full flex items-center justify-center"
+        >
           <input
             type="text"
             name="email"
             placeholder="Enter your email"
-            class="p-3 border-2 border-solid border-black/25 outline-none hover:border-black uppercase w-2/5"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="p-1 md:p-3 border-2 border-solid border-black/25 outline-none hover:border-black  md:w-2/5"
           />
-          <button class="bg-white text-black uppercase font-bold p-3 tracking-tight">
-            Subscribe
+          <button className="bg-white text-black uppercase font-bold p-1 md:p-3 tracking-tight">
+            {loading ? "Loading" : "Subscribe"}
           </button>
         </form>
       </div>
-      <div class="container mx-auto w-3/4">
-        <div class="flex items-center justify-between py-4">
-          <h2 class="text-white text-2xl">PropertyListings</h2>
+      <div className="container mx-auto w-3/4">
+        <div className="flex flex-col md:flex-row items-center justify-between py-4">
+          <NavLink
+            to={"/"}
+            className="flex text-2xl cursor-pointer items-center gap-2"
+          >
+            <FaHouseDamage className="w-7 h-7 text-yellow-600" />
+            <span className="font-bold text-white text-sm md:text-xl">
+              PropertyListings
+            </span>
+          </NavLink>
           <div>
-            <ul class="text-white flex items-center space-x-6 py-3">
+            <ul className="text-white flex items-center space-x-6 py-3">
               <li>
-                <a href="#" class="uppercase text-2l">
+                <NavLink to={"/buy"} className="uppercase text-xs md:text-sm">
                   Buy
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" class="uppercase text-2l">
+                <NavLink to={"/sell"} className="uppercase text-xs md:text-sm">
                   Sell
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" class="uppercase text-2l">
+                <NavLink to={"/about"} className="uppercase text-xs md:text-sm">
                   About
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" class="uppercase text-2l">
+                <NavLink
+                  to={"/contact"}
+                  className="uppercase text-xs md:text-sm"
+                >
                   Contact
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
         </div>
-        <hr class="border-solid border-1 border-white" />
-        <div class="flex items-center justify-between py-4">
-          <p class="text-white">@Supestahn. All rights reserved</p>
+        <hr className="border-solid border-1 border-white" />
+        <div className="flex items-center justify-between py-4">
+          <p className="text-white text-xs">@Supestahn. All rights reserved</p>
         </div>
       </div>
     </footer>

@@ -8,6 +8,7 @@ export const listings = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, minima",
     coverImage:
       "https://cdn.pixabay.com/photo/2017/04/10/22/28/residence-2219972_1280.jpg",
+    isApproved: true,
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const listings = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, minima",
     coverImage:
       "https://cdn.pixabay.com/photo/2020/12/16/00/10/home-5835289_1280.jpg",
+    isApproved: true,
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ export const listings = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, minima",
     coverImage:
       "https://cdn.pixabay.com/photo/2017/06/17/12/59/luxury-home-2412145_1280.jpg",
+    isApproved: false,
   },
   {
     id: 4,
@@ -38,6 +41,7 @@ export const listings = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, minima",
     coverImage:
       "https://cdn.pixabay.com/photo/2017/07/08/02/16/house-2483336_1280.jpg",
+    isApproved: true,
   },
   {
     id: 5,
@@ -48,6 +52,7 @@ export const listings = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, minima",
     coverImage:
       "https://cdn.pixabay.com/photo/2018/02/13/11/09/home-3150500_1280.jpg",
+    isApproved: false,
   },
   {
     id: 6,
@@ -58,5 +63,6 @@ export const listings = [
       "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, minima",
     coverImage:
       "https://cdn.pixabay.com/photo/2018/04/30/13/33/house-3362676_1280.jpg",
+    isApproved: true,
   },
 ];
