@@ -31,10 +31,12 @@ function Featured({ action }) {
           <h2 className="text-white text-xl md:text-3xl uppercase font-bold p-3">
             featured property
           </h2>
-          <p className="p-3 text-white font-bold text-2xl uppercase">
+          <p className="p-3 text-white font-bold text-lg md:text-2xl uppercase">
             {listing?.name}
           </p>
-          <p className="p-3 text-white font-bold text-2xl">{listing?.state}</p>
+          <p className="p-3 text-white font-bold text-lg md:text-2xl">
+            {listing?.state}
+          </p>
           <NavLink
             to={`/listing/${listing?._id}`}
             className="uppercase bg-white text-dark p-3 rounded-md"

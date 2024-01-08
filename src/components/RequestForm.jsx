@@ -1,5 +1,6 @@
 import axios from "../config/axios";
 import { useState } from "react";
+import swal from "sweetalert";
 
 function RequestForm({ showRequestForm, setShowRequestForm, listingId }) {
   const [requestData, setRequestData] = useState({
@@ -32,9 +33,10 @@ function RequestForm({ showRequestForm, setShowRequestForm, listingId }) {
         email: "",
         phoneNumber: "",
       });
-      alert("Request has been sent!! We will get back to you.");
+      //   alert("Request has been sent!! We will get back to you.");
+      swal(response.data.message);
     } catch (error) {
-      console.log(error);
+      swal("Oops!", error.response.data.message, "error");
       setLoading(false);
     }
   };

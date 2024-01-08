@@ -97,7 +97,7 @@ function Enquiry() {
             <input
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="Enter agency name"
               className={formInputClass}
               onChange={handleChange}
               value={propertyData.name}
@@ -105,7 +105,7 @@ function Enquiry() {
             <input
               type="email"
               name="email"
-              placeholder="Email address"
+              placeholder="Enter agency email address"
               className={formInputClass}
               onChange={handleChange}
               value={propertyData.email}
@@ -115,7 +115,7 @@ function Enquiry() {
             <input
               type="text"
               name="number"
-              placeholder="Phone Number"
+              placeholder="Enter Phone Number"
               className={formInputClass}
               onChange={handleChange}
               value={propertyData.number}
@@ -123,7 +123,7 @@ function Enquiry() {
             <input
               type="text"
               name="address"
-              placeholder="Enter Address"
+              placeholder="Enter listing address"
               className={formInputClass}
               onChange={handleChange}
               value={propertyData.address}
@@ -134,7 +134,7 @@ function Enquiry() {
             <input
               type="text"
               name="state"
-              placeholder="State"
+              placeholder="Enter listing state"
               className={formInputClass}
               onChange={handleChange}
               value={propertyData.state}
@@ -143,7 +143,7 @@ function Enquiry() {
             <input
               type="text"
               name="price"
-              placeholder="Price Expectations in Naira"
+              placeholder="Price Expectations"
               className={formInputClass}
               onChange={handleChange}
               value={propertyData.price}

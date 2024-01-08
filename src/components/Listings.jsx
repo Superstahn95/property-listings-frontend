@@ -54,7 +54,7 @@ function Listings() {
         <div className="flex flex-col md:flex-row py-4">
           <div className="filters mb-4 md:w-2/12">
             <p className="py-2">Filter by bedrooms</p>
-            <ul className="flex flex-row md:flex-col  space-x-5 md:space-x-0">
+            <ul className="flex flex-row md:flex-col  space-x-4 md:space-x-0">
               {["1", "2", "3", "4", "5+"].map((numOfRooms) => (
                 <li className="md:py-3">
                   <button

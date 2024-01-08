@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../config/axios";
 import { useParams } from "react-router-dom";
 import RequestForm from "../components/RequestForm";
+import dateFormat, { masks } from "dateformat";
 
 function Listing() {
   const [listing, setListing] = useState(null);
@@ -24,7 +25,7 @@ function Listing() {
   useEffect(() => {
     getListing();
   }, [id]);
-  console.log(listing);
+
   return (
     <div className="w-11/12 md:w-4/5 py-4 mt-14 md:mt-24 mx-auto font-montserrat">
       <div className="flex items-center justify-between ">
@@ -34,7 +35,7 @@ function Listing() {
             {listing?.address}
           </span>
         </div>
-        <div className="font-bold text-lg md:text-xl ">{listing?.price}</div>
+        <div className="font-bold text-lg md:text-xl ">${listing?.price}</div>
       </div>
       {/* image */}
       <div className="my-4">
@@ -51,7 +52,9 @@ function Listing() {
           <span className="font-semibold text-sm md:text-lg">
             Date Listed:{" "}
           </span>
-          <span className="text-sm md:text-lg">{listing?.createdAt}</span>
+          <span className="text-sm md:text-lg">
+            {dateFormat(listing?.createdAt)}
+          </span>
         </div>
         <div className="pb-2">
           <span className="font-semibold text-sm md:text-lg">
