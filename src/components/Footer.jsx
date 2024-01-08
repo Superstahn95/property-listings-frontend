@@ -25,7 +25,10 @@ function Footer() {
   };
   return (
     <footer className="bg-black py-5 font-montserrat">
-      <div className="subscribe flex items-center justify-center">
+      <div className="subscribe flex flex-col items-center justify-center">
+        <h2 className="text-white text-center text-xl mb-4 uppercase font-bold">
+          Want to get notified whenever a listing is approved?
+        </h2>
         <form
           onSubmit={handleSubscribe}
           className="w-full flex items-center justify-center"
