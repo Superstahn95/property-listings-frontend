@@ -22,7 +22,7 @@ function Navbar() {
         {/* logo here */}
         <NavLink
           to={"/"}
-          className="flex text-2xl cursor-pointer items-center gap-2"
+          className="flex text-2xl cursor-pointer items-center gap-2 w-fit"
         >
           <FaHouseDamage className="w-7 h-7 text-yellow-600" />
           <span className="font-bold text-sm md:text-xl">PropertyListings</span>
